@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura | Empathetic Digital Spirit</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="atmosphere" id="aura-bg"></div>
+    <div class="noise"></div>
+
+    <main id="aura-app">
+        <section class="spirit-core">
+            <div class="spirit-orb" id="spirit-orb"></div>
+            <div class="status-label" id="spirit-status">Aura: Presence Detected</div>
+        </section>
+
+        <section class="chat-interface">
+            <div class="messages" id="chat-messages">
+                <div class="message ai">
+                    I am Aura. I sense your presence in this digital void. How are you feeling today?
+                </div>
+            </div>
+            <form class="input-area" id="chat-form">
+                <input type="text" id="user-input" placeholder="Whisper to the spirit..." autocomplete="off">
+                <button type="submit">SEND</button>
+            </form>
+        </section>
+    </main>
+
+    <script src="tokens.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
