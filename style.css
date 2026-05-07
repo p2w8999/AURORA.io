@@ -1,0 +1,216 @@
+:root {
+    --bg-color: #050505;
+    --aura-hue: 280; /* Neutral Purple */
+    --aura-sat: 70%;
+    --aura-light: 50%;
+    --text-primary: #ffffff;
+    --text-secondary: rgba(255, 255, 255, 0.7);
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --accent-glow: hsla(var(--aura-hue), var(--aura-sat), var(--aura-light), 0.5);
+    --transition-speed: 0.8s;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Outfit', 'Inter', sans-serif;
+}
+
+body {
+    background: var(--bg-color);
+    color: var(--text-primary);
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Background Atmosphere */
+.atmosphere {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: radial-gradient(circle at 50% 50%, var(--accent-glow) 0%, transparent 70%);
+    transition: background var(--transition-speed) ease;
+    filter: blur(100px);
+}
+
+.noise {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.05;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Main Container */
+#aura-app {
+    width: 90vw;
+    max-width: 1000px;
+    height: 85vh;
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 2rem;
+    position: relative;
+    z-index: 1;
+}
+
+/* Left Side: The Digital Spirit Visualizer */
+.spirit-core {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.spirit-orb {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: var(--accent-glow);
+    box-shadow: 0 0 100px var(--accent-glow);
+    position: relative;
+    animation: pulse 4s infinite ease-in-out;
+    transition: background var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+}
+
+.spirit-orb::before {
+    content: '';
+    position: absolute;
+    inset: -20px;
+    border-radius: 50%;
+    border: 2px solid var(--glass-border);
+    animation: rotate 10s linear infinite;
+}
+
+.status-label {
+    margin-top: 2rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    font-weight: 300;
+}
+
+/* Right Side: Chat Interface */
+.chat-interface {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+.messages {
+    flex: 1;
+    padding: 2rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    scrollbar-width: none;
+}
+
+.messages::-webkit-scrollbar { display: none; }
+
+.message {
+    max-width: 85%;
+    padding: 1rem 1.2rem;
+    border-radius: 16px;
+    line-height: 1.5;
+    font-size: 0.95rem;
+    animation: slideUp 0.4s ease-out forwards;
+}
+
+.message.ai {
+    background: rgba(255, 255, 255, 0.05);
+    align-self: flex-start;
+    border-bottom-left-radius: 4px;
+    color: var(--text-primary);
+}
+
+.message.user {
+    background: hsla(var(--aura-hue), var(--aura-sat), var(--aura-light), 0.2);
+    align-self: flex-end;
+    border-bottom-right-radius: 4px;
+    color: #fff;
+    border: 1px solid var(--glass-border);
+}
+
+.input-area {
+    padding: 1.5rem;
+    background: rgba(0, 0, 0, 0.2);
+    display: flex;
+    gap: 1rem;
+}
+
+input {
+    flex: 1;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    color: white;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+input:focus {
+    border-color: hsla(var(--aura-hue), var(--aura-sat), var(--aura-light), 0.5);
+}
+
+button {
+    background: hsla(var(--aura-hue), var(--aura-sat), var(--aura-light), 0.8);
+    border: none;
+    padding: 0 1.5rem;
+    border-radius: 12px;
+    color: white;
+    cursor: pointer;
+    font-weight: 600;
+    transition: transform 0.2s, background 0.3s;
+}
+
+button:hover {
+    transform: scale(1.05);
+    background: hsla(var(--aura-hue), var(--aura-sat), var(--aura-light), 1);
+}
+
+/* Animations */
+@keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.1); opacity: 1; }
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    #aura-app {
+        grid-template-columns: 1fr;
+        height: auto;
+        padding: 2rem 0;
+    }
+    .spirit-orb { width: 120px; height: 120px; }
+}
